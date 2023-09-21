@@ -26,10 +26,11 @@ export const CarAdverts = () => {
   });
 
   const [carData, setCarData] = useState([]);
+  const [page, setPage] =useState(1)
 
   useEffect(() => {
     axios
-      .get("https://6502e019a0f2c1f3faeb04f8.mockapi.io/api/v1/adverts")
+      .get(`https://6502e019a0f2c1f3faeb04f8.mockapi.io/api/v1/adverts?page=${page}&limit=4`)
       .then((response) => {
         setCarData(response.data);
       })
@@ -47,7 +48,7 @@ export const CarAdverts = () => {
     return (
       <Card
         sx={{
-          maxWidth: '274px',
+          maxWidth: "274px",
           marginTop: "20px",
           position: "relative",
           marginRight: "29px",
@@ -58,8 +59,8 @@ export const CarAdverts = () => {
         <IconButton
           aria-label="add to favorites"
           sx={{
-            width: '42px',
-            height: '42px',
+            width: "42px",
+            height: "42px",
             position: "absolute",
             right: 0,
           }}
@@ -78,7 +79,11 @@ export const CarAdverts = () => {
             component="img"
             height="268"
             width="274"
-            image={car.img? car.img : 'https://res.cloudinary.com/dl1mu7afv/image/upload/v1694726272/suv-car-13361_jsb1x9.png'}
+            image={
+              car.img
+                ? car.img
+                : "https://res.cloudinary.com/dl1mu7afv/image/upload/v1694726272/suv-car-13361_jsb1x9.png"
+            }
             alt="car"
           />
           <CardContent>
@@ -105,8 +110,26 @@ export const CarAdverts = () => {
               <StyledTypography>{car.accessories[0]}</StyledTypography>
             </Box>
           </CardContent>
-          <CardModal />
-          </Box>
+          <CardModal
+            image={car.img}
+            make={car.make}
+            model={car.model}
+            year={car.year}
+            city={city}
+            country={country}
+            id={car.id}
+            rentalPrice={car.rentalPrice}
+            description={car.description}
+            accessories={car.accessories}
+            mileage={car.mileage}
+            type={car.type}
+            fuelConsumption={car.fuelConsumption}
+            rentalCompany={car.rentalCompany}
+            engineSize={car.engineSize}
+            functionalities={car.functionalities}
+            rentalConditions={car.rentalConditions}
+          />
+        </Box>
         {/* <CardActions disableSpacing></CardActions> */}
       </Card>
     );
